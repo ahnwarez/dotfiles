@@ -96,6 +96,8 @@ alias ns="npm start"
 alias ezrc="nvim ~/.zshrc"
 alias envim="nvim ~/.config/nvim"
 alias ll="ls -al"
+alias dev="cd ~/workspace/devacademy"  
+alias marking="cd ~/workspace/devacademy/marking"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

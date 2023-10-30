@@ -1,8 +1,9 @@
---[[
+  --[[
 
 -- TODO: github copilot
 -- TODO: format buffer using null-ls
--- TODO: C-s should save current file
+-- TODO: add a custom snippet for console.log
+-- TODO: customise Netrw to remove the useless upper section
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -71,7 +72,13 @@ require('lazy').setup({
     },
     lazy = false,
   },
-
+  {
+    "kdheepak/lazygit.nvim",
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -291,6 +298,12 @@ vim.o.termguicolors = true
 
 -- save file
 vim.keymap.set('n', '<C-s>', ':w<CR>', { silent = true })
+vim.keymap.set('i', '<C-s>', '<Esc>:w<cr>a', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>q', ':q<cr>', { silent = true, desc = '[Q]uit' })
+
+
+-- open lazygik
+vim.keymap.set('n', '<leader>gg', ':LazyGit<CR>', { noremap = true, silent = true, desc = 'Lazygit' })
 
 -- open file explorer
 vim.keymap.set('n', '<leader>f', ':Explore<CR>', { noremap = true, silent = true, desc = 'Netrw' })
@@ -426,7 +439,9 @@ end, 0)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- remapped 'q' to quit nvim instead
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -585,6 +600,8 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

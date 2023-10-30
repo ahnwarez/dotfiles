@@ -1,9 +1,9 @@
-  --[[
+--[[
 
 -- TODO: github copilot
 -- TODO: format buffer using null-ls
 -- TODO: add a custom snippet for console.log
--- TODO: customise Netrw to remove the useless upper section
+-- TODO: when a new file is opened, a command or script should automatically populates a register with the full path of the file
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -186,7 +186,7 @@ require('lazy').setup({
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
-        lualine_x = { '' },
+        lualine_x = { function() return vim.fn.expand('%:p') end },
         lualine_y = { 'filetype', 'progress' },
         lualine_z = { 'location' }
       },
@@ -299,7 +299,11 @@ vim.o.termguicolors = true
 -- save file
 vim.keymap.set('n', '<C-s>', ':w<CR>', { silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<cr>a', { noremap = true, silent = true })
+
+-- quit and exit
 vim.keymap.set('n', '<leader>q', ':q<cr>', { silent = true, desc = '[Q]uit' })
+
+vim.keymap.set('n', '<leader>"', ":let @+expand('%:p')<CR>", { silent = true, desc = '[Q]uit' })
 
 
 -- open lazygik
@@ -513,12 +517,10 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  tsserver = {},
+  html = { filetypes = { 'html', 'twig', 'hbs'} },
+  cssls = {},
+  tailwindcss = {},
 
   lua_ls = {
     Lua = {
@@ -601,7 +603,9 @@ cmp.setup {
   },
 }
 
-
+-- Netrw 
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

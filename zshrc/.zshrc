@@ -99,6 +99,7 @@ alias envim="nvim ~/.config/nvim"
 alias ll="ls -al"
 alias dev="cd ~/workspace/devacademy"  
 alias marking="cd ~/workspace/devacademy/marking"
+alias lg="lazygit"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

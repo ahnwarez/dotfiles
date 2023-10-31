@@ -312,10 +312,10 @@ vim.keymap.set('i', '<C-s>', '<Esc>:w<cr>a', { noremap = true, silent = true })
 -- quit and exit
 vim.keymap.set('n', '<leader>q', ':q<cr>', { silent = true, desc = '[Q]uit' })
 
-vim.keymap.set('n', '<leader>"', ":let @+expand('%:p')<CR>", { silent = true, desc = '[Q]uit' })
+-- Copy the full path of the current path to the system clipboard
+vim.keymap.set('n', '<leader>"', ":let @+=expand('%:p')<CR>", { silent = true, desc = 'Print path' })
 
-
--- open lazygik
+-- open lazygit
 vim.keymap.set('n', '<leader>gg', ':LazyGit<CR>', { noremap = true, silent = true, desc = 'Lazygit' })
 
 -- open file explorer
@@ -362,7 +362,7 @@ pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers, { desc = '[b] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {

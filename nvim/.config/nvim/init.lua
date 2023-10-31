@@ -65,6 +65,15 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
+  { 'nvim-lua/plenary.nvim' },
+  {
+    'ThePrimeagen/harpoon',
+    keys = {
+      { "<leader><leader>a", function() require("harpoon.mark").add_file() end,        desc = "Add file" },
+      { "<leader><leader>e", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Toggle quick menu" },
+    }
+  },
+
   {
     'numToStr/Comment.nvim',
     opts = {
@@ -122,7 +131,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -518,7 +527,7 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   tsserver = {},
-  html = { filetypes = { 'html', 'twig', 'hbs'} },
+  html = { filetypes = { 'html', 'twig', 'hbs' } },
   cssls = {},
   tailwindcss = {},
 
@@ -603,7 +612,7 @@ cmp.setup {
   },
 }
 
--- Netrw 
+-- Netrw
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 

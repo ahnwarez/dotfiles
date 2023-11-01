@@ -41,6 +41,9 @@ are first encountering a few different constructs in your nvim config.
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- disable word wrap
+vim.opt.wrap = false
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -323,6 +326,9 @@ vim.keymap.set('n', '<leader>f', ':Explore<CR>', { noremap = true, silent = true
 
 -- format document
 vim.keymap.set('n', '<leader>lf', ':Format<CR>', { noremap = true, silent = true, desc = 'Format' })
+
+-- toggle word wrap
+vim.keymap.set('n', '<leader>ww', [[<Cmd>set wrap!<CR>]], { noremap = true, silent = true, desc = 'Toggle word [W]rap' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`

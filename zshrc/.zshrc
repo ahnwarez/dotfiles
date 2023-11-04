@@ -100,6 +100,8 @@ alias ll="ls -al"
 alias dev="cd ~/workspace/devacademy"  
 alias marking="cd ~/workspace/devacademy/marking"
 alias lg="lazygit"
+alias ei3="nvim ~/dotfiles/i3/.config/i3/config"
+
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

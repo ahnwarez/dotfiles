@@ -4,38 +4,7 @@
 -- TODO: format buffer using null-ls
 -- TODO: add a custom snippet for console.log
 -- TODO: when a new file is opened, a command or script should automatically populates a register with the full path of the file
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
-
-Kickstart Guide:
-
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
--]]
+-- ]]
 
 -- Set <space> as the leader key
 vim.g.mapleader = ' '
@@ -43,6 +12,9 @@ vim.g.maplocalleader = ' '
 
 -- disable word wrap
 vim.opt.wrap = false
+
+-- set tabs to be two spaces
+vim.opt.tabstop = 2
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -329,6 +301,7 @@ vim.keymap.set('n', '<leader>lf', ':Format<CR>', { noremap = true, silent = true
 
 -- toggle word wrap
 vim.keymap.set('n', '<leader>ww', [[<Cmd>set wrap!<CR>]], { noremap = true, silent = true, desc = 'Toggle word [W]rap' })
+vim.keymap.set({ 'n', 'v', 's' }, '<leader>A', ':keepjumps normal! ggVG<cr>', { noremap = true, silent = true, desc = 'Select [a]ll' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -444,10 +417,10 @@ vim.defer_fn(function()
       swap = {
         enable = true,
         swap_next = {
-          ['<leader>a'] = '@parameter.inner',
+          [',a'] = '@parameter.inner',
         },
         swap_previous = {
-          ['<leader>A'] = '@parameter.inner',
+          [',A'] = '@parameter.inner',
         },
       },
     },

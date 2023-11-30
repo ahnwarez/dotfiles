@@ -4,6 +4,9 @@
 -- TODO: format buffer using null-ls
 -- TODO: add a custom snippet for console.log
 -- TODO: when a new file is opened, a command or script should automatically populates a register with the full path of the file
+-- TODO: update neovim
+-- TODO: install nerd tree
+-- TODO: make prettier to consistently
 -- ]]
 
 -- Set <space> as the leader key
@@ -232,6 +235,43 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
+  --
+  {
+    'stevearc/conform.nvim',
+    opts = {},
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local conform = require("conform")
+
+      conform.setup({
+        formatter_by_ft = {
+          javascript = { "prettier" },
+          typescript = { "prettier" },
+          javascriptreact = { "prettier" },
+          typescriptreact = { "prettier" },
+          css = { "prettier" },
+          html = { "prettier" },
+          json = { "prettier" },
+          yaml = { "prettier" },
+          markdown = { "prettier" },
+          lua = { "stylua" },
+        },
+        format_on_save = {
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 500
+        }
+      })
+
+      vim.keymap.set({ "n", "v" }, "<leader>lf", function()
+        conform.format({
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 500
+        })
+      end, { desc = "Format file or range (in visual mode)" })
+    end
+  },
 }, {})
 
 -- [[ Setting options ]]
@@ -294,14 +334,15 @@ vim.keymap.set('n', '<leader>"', ":let @+=expand('%:p')<CR>", { silent = true, d
 vim.keymap.set('n', '<leader>gg', ':LazyGit<CR>', { noremap = true, silent = true, desc = 'Lazygit' })
 
 -- open file explorer
-vim.keymap.set('n', '<leader>f', ':Explore<CR>', { noremap = true, silent = true, desc = 'Netrw' })
+vim.keymap.set('n', '<leader>e', ':Explore<CR>', { noremap = true, silent = true, desc = 'Netrw' })
 
 -- format document
-vim.keymap.set('n', '<leader>lf', ':Format<CR>', { noremap = true, silent = true, desc = 'Format' })
+-- vim.keymap.set('n', '<leader>lf', ':Format<CR>', { noremap = true, silent = true, desc = 'Format' })
 
 -- toggle word wrap
 vim.keymap.set('n', '<leader>ww', [[<Cmd>set wrap!<CR>]], { noremap = true, silent = true, desc = 'Toggle word [W]rap' })
-vim.keymap.set({ 'n', 'v', 's' }, '<leader>A', ':keepjumps normal! ggVG<cr>', { noremap = true, silent = true, desc = 'Select [a]ll' })
+vim.keymap.set({ 'n', 'v', 's' }, '<leader>A', ':keepjumps normal! ggVG<cr>',
+  { noremap = true, silent = true, desc = 'Select [a]ll' })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -430,7 +471,7 @@ end, 0)
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 
 -- remapped 'q' to quit nvim instead
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
